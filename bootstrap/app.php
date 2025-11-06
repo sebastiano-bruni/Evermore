@@ -13,6 +13,17 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         //
     })
-    ->withExceptions(function (Exceptions $exceptions): void {
-        //
+    ->withExceptions(function (Exceptions $exceptions) {
+
+        // Diciamo a Laravel: "Quando stai per MOSTRARE un errore
+        // di tipo AuthenticationException..."
+        $exceptions->render(function (\Illuminate\Auth\AuthenticationException $e, $request) {
+
+            // "...controlla se la richiesta NON è un'API (quindi è un browser)"
+            if (! $request->expectsJson()) {
+
+                // "e in quel caso, reindirizza alla homepage."
+                return redirect()->route('home');
+            }
+        });
     })->create();

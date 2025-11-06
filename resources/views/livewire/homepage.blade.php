@@ -2,7 +2,7 @@
     <!-- Hero Section -->
     <section class="text-center py-20 md:py-32 px-4">
         <div class="max-w-3xl mx-auto">
-            <h2 class="text-4xl md:text-6xl font-extrabold text-white leading-tight">Il Ricordo Diventa <span class="gold-gradient-text">Conversazione</span>.</h2>
+            <h2 class="text-4xl md:text-6xl font-extrabold text-white leading-tight">Il Ricordo Diventa <span class="gold-gradient-text">Conversazione</span></h2>
             <p class="mt-6 text-lg text-gray-400 max-w-2xl mx-auto">
                 Evermore offre un nuovo modo per onorare la memoria dei tuoi cari. Un ponte digitale tra passato e presente, per mantenere vive le storie che contano.
             </p>

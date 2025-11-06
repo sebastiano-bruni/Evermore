@@ -25,7 +25,7 @@
 <body class="antialiased bg-gray-900 text-gray-300 font-[Inter]">
 <div class="flex flex-col min-h-screen">
 
-    {{-- Usiamo la nostra navbar semplice per le pagine pubbliche --}}
+    {{-- Uso la navbar semplice per le pagine pubbliche --}}
     <x-navbar />
 
     <main class="flex-grow">

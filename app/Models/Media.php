@@ -6,31 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Visit extends Model
+class Media extends Model
 {
     use HasFactory;
 
-    /**
-     * Gli attributi che possono essere assegnati in massa.
-     */
     protected $fillable = [
-        'user_id',
         'commemorative_profile_id',
-        'latitude',
-        'longitude',
-        // 'profile_name' e 'visit_date' rimossi
+        'type',
+        'file_path',
+        'title',
     ];
 
     /**
-     * Ottiene il profilo commemorativo associato a questa visita.
+     * Ottiene il profilo commemorativo a cui appartiene il media.
      */
     public function commemorativeProfile(): BelongsTo
     {
         return $this->belongsTo(CommemorativeProfile::class);
-    }
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
     }
 }

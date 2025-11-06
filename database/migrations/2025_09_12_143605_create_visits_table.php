@@ -13,9 +13,19 @@ return new class extends Migration
     {
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
+
+            // Chi ha fatto la visita
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('profile_name');
-            $table->string('profile_id');
+
+            // Chi è stato visitato (usiamo questo nome per coerenza)
+            $table->foreignId('commemorative_profile_id')->constrained()->onDelete('cascade');
+
+            // Per la mappa (RF16)
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
+
+            // Questo crea 'created_at' e 'updated_at'
+            // 'created_at' sarà la nostra 'visit_date'
             $table->timestamps();
         });
     }

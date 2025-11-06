@@ -8,7 +8,7 @@ class Homepage extends Component
 {
     public function render()
     {
-        // MODIFICA CHIAVE: Usiamo il nuovo layout 'public' invece di quello di default 'app'
+        // Uso il layout public
         return view('livewire.homepage')
             ->layout('layouts.public');
     }

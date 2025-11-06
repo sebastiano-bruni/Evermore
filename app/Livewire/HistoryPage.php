@@ -2,30 +2,35 @@
 
 namespace App\Livewire;
 
-use Livewire\Attributes\Layout;
-use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
 
-#[Layout('layouts.app')]
 class HistoryPage extends Component
 {
-    public $visits;
+    public $visits = []; // Conterrà le visite da mostrare
 
     public function mount()
     {
-        // In una versione futura, questi dati arriveranno dal database
-        // E.g., $this->visits = Auth::user()->visits()->latest()->get();
-
-        // Per ora, usiamo dati di esempio
-        $this->visits = collect([
-            (object)['profile_name' => 'Valentino Bruni', 'created_at' => now()->subDays(2)],
-            (object)['profile_name' => 'Marco Rossi', 'created_at' => now()->subDays(10)],
-            (object)['profile_name' => 'Anna Neri', 'created_at' => now()->subDays(35)],
-        ]);
+        // Carica tutte le visite dell'utente, includendo i dati del profilo associato
+        $this->visits = Auth::user()->visits()
+            ->with('commemorativeProfile') // Mentre recuperi le visite, carica subito anche i dati del commemorativeProfile associato a ciascuna visita
+            ->whereNotNull('latitude') // Mostra solo visite con GPS
+            ->latest() // Ordina dalla più recente
+            ->get()
+            ->map(function ($visit) {
+                // Formatta i dati per renderli facili da usare in JS
+                return [
+                    'lat' => $visit->latitude,
+                    'lng' => $visit->longitude,
+                    'name' => $visit->commemorativeProfile->first_name . ' ' . $visit->commemorativeProfile->last_name,
+                    'date' => $visit->created_at->format('d/m/Y H:i')
+                ];
+            });
     }
 
     public function render()
     {
-        return view('livewire.history-page');
+        return view('livewire.history-page')
+            ->layout('layouts.app');
     }
 }
